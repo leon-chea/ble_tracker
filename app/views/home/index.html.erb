@@ -1,0 +1,26 @@
+<h1>Hello, Rails!</h1>
+
+ <!-- <p>MESSAGE: <%= @message %></p> -->
+
+ <!-- <p>MESSAGE: <%= @userid %></p> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+ <%= javascript_include_tag('room.js') %>
+ <%= javascript_include_tag('canvas.js') %>
+ <%= javascript_include_tag('tracking.js') %>
+
+ <body onpageshow="main()">
+	<div id="container">
+  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
+    		This text is displayed if your browser does not support HTML5 Canvas.
+  		</canvas>
+	</div>
+</body>
+
+<%= link_to "Modify Map", {action: "modify"}, method: :get %>
+
+<p id="fooBar">Fields:</p>
+<p id="bad">bad:</p>
+
+

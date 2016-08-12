@@ -1,0 +1,166 @@
+<!-- <style>
+#banner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 200px;
+}
+</style>
+
+<body> <img id="banner" src="/app/assets/images/banner.png" alt="banner" /> </body> -->
+
+
+<!-- <h1>BLE Spatial Tracker</h1>
+<h2>School of Computer Science</h2> -->
+
+<div id="banner"> 
+	<h1> BLE Spatial Tracker </h1>
+	<h2>School of Computer Science</h2>
+	<h2>The University of Adelaide</h2>
+
+</div>
+
+<%= stylesheet_link_tag "layout" %>
+
+ <%= javascript_include_tag('room.js') %>
+ <%= javascript_include_tag('canvas.js') %>
+ <%= javascript_include_tag('floorplan.js') %>
+
+ <body onpageshow="main()">
+	<div id="container">
+  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
+    		This text is displayed if your browser does not support HTML5 Canvas.
+  		</canvas>
+	</div>
+</body>
+
+<input type="button" id="save" value="Save">
+<!-- <input type="button" id="start_tracking" value="Start Tracking"> -->
+
+<%= link_to "Start Tracking", {action: "index"}, method: :get %>
+
+<br />
+
+<input type="button" id="resize_border" value="Resize Border">
+<input type="button" id="add" value="Add">
+
+<div id="object_dialogue" class="dialogue"> 
+	<div class="dialogue_main">
+		<div class="dialogue_header">
+			<p> Select what you want to add: </p>
+		</div>
+
+		<div class="dialogue_body">
+			<form id="object_form">
+				<input type="radio" name="object" value="room"> <label>Room</label> <br />
+				<input type="radio" name="object" value="door"> <label>Door</label> <br />
+				<input type="radio" name="object" value="obstacle"> <label>Obstacle</label> <br />
+				<input type="radio" name="object" value="beacon"> <label>Beacon</label> <br />
+
+				<input type="button" id="add_object" value="OK">
+				<input type="button" id="cancel_object" value="Cancel">
+			</form>	
+		</div>
+	</div>
+</div>
+
+
+<div id="room_dialogue" class="dialogue"> 
+	<div class="dialogue_main">
+		<div class="dialogue_header">
+			<p> Add New Room </p>
+		</div>
+
+		<div class="dialogue_body">
+			<form id="room_form">
+				X-coordinate: <input type="text" name="x"> <br />
+				Y-coordinate: <input type="text" name="y"> <br />
+				Width: <input type="text" name="w"> <br />
+				Height: <input type="text" name="h"> <br />
+				<input type="button" id="add_room" value="OK">
+				<input type="button" id="cancel_room" value="Cancel">
+			</form>	
+		</div>
+	</div>
+</div>
+
+
+<div id="door_dialogue" class="dialogue"> 
+	<div class="dialogue_main">
+		<div class="dialogue_header">
+			<p> Add New Door </p>
+		</div>
+
+		<div class="dialogue_body">
+			<form id="door_form">
+				X-coordinate: <input type="text" name="x"> <br />
+				Y-coordinate: <input type="text" name="y"> <br />
+				Width: <input type="text" name="w"> <br />
+				Height: <input type="text" name="h"> <br />
+				<input type="button" id="add_door" value="OK">
+				<input type="button" id="cancel_door" value="Cancel">
+			</form>	
+		</div>
+	</div>
+</div>
+
+
+<div id="obstacle_dialogue" class="dialogue"> 
+	<div class="dialogue_main">
+		<div class="dialogue_header">
+			<p> Add New Obstacle </p>
+		</div>
+
+		<div class="dialogue_body">
+			<form id="obstacle_form">
+				X-coordinate: <input type="text" name="x"> <br />
+				Y-coordinate: <input type="text" name="y"> <br />
+				Width: <input type="text" name="w"> <br />
+				Height: <input type="text" name="h"> <br />
+				<input type="button" id="add_obstacle" value="OK">
+				<input type="button" id="cancel_obstacle" value="Cancel">
+			</form>	
+		</div>
+	</div>
+</div>
+
+
+<div id="beacon_dialogue" class="dialogue"> 
+	<div class="dialogue_main">
+		<div class="dialogue_header">
+			<p> Add New Beacon </p>
+		</div>
+
+		<div class="dialogue_body">
+			<form id="beacon_form">
+				X-coordinate: <input type="text" name="x"> <br />
+				Y-coordinate: <input type="text" name="y"> <br />
+				Beacon ID: <input type="text" name="id"> <br />
+				<input type="button" id="add_beacon" value="OK">
+				<input type="button" id="cancel_beacon" value="Cancel">
+			</form>	
+		</div>
+	</div>
+</div>
+
+<input type="button" id="delete" value="Delete">
+<br />
+
+<!-- <input type="button" id="new_door" value="New Door">
+ --><!-- <input type="button" id="delete_door" value="Delete Door"> -->
+<!-- <input type="button" id="new_obstacle" value="New Obstacle">
+ --><!-- <input type="button" id="delete_obstacle" value="Delete Obstacle"> -->
+<!-- <input type="button" id="add_beacon" value="Add Beacon">
+ --><!-- <input type="button" id="delete_beacon" value="Delete Beacon"> -->
+
+
+
+
+<p id="dummy">dummy</p>
+
+ <p>MESSAGE: <%= @userid %></p>
+
+
+
+
