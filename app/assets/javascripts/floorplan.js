@@ -29,16 +29,20 @@ function main() {
 	updateCanvasSize(canvas,parseFloat(localStorage.getItem("dimensions_width")),parseFloat(localStorage.getItem("dimensions_height")));
 
 
-	if ((localStorage.getItem("shapes") == null)) {
-    	localStorage.setItem("shapes","");
-    	localStorage.setItem("beacons","");
-    	localStorage.setItem("obstacles","");
-    	localStorage.setItem("doors","");
+	if ((localStorage.getItem("shapes") == "")) {
+    	// localStorage.setItem("test1","[]");
+    	localStorage.setItem("shapes","[]");
+    	localStorage.setItem("beacons","[]");
+    	localStorage.setItem("obstacles","[]");
+    	localStorage.setItem("doors","[]");
 	}
 	canvas.setShapes(JSON.parse(localStorage.getItem("shapes")));
 	canvas.setBeacons(JSON.parse(localStorage.getItem("beacons")));
 	canvas.setObstacles(JSON.parse(localStorage.getItem("obstacles")));
 	canvas.setDoors(JSON.parse(localStorage.getItem("doors")));
+
+	// alert(localStorage.getItem("test1") + " " + "hey");
+    	// localStorage.setItem("test",null);
 
 	// document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("doors")).textContent;
 
