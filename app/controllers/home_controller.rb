@@ -10,17 +10,17 @@ class HomeController < ApplicationController
 		# Thread.new do
 			# sleep(1)
 
-			MQTT::Client.connect('192.168.0.14',1883) do |c|
-			  # If you pass a block to the get method, then it will loop
-			  c.get('bledata') do |topic,message|
-					@parsedMessage ||= JSON.parse(message)
-					gon.watch.parsedMessage = @parsedMessage
-					# gon.JSON_message = @parsedMessage
-					# puts @parsedMessage['payload'][7]
-					break
+			# MQTT::Client.connect('192.168.0.14',1883) do |c|
+			#   # If you pass a block to the get method, then it will loop
+			#   c.get('bledata') do |topic,message|
+			# 		@parsedMessage ||= JSON.parse(message)
+			# 		gon.watch.parsedMessage = @parsedMessage
+			# 		# gon.JSON_message = @parsedMessage
+			# 		# puts @parsedMessage['payload'][7]
+			# 		break
 
-			  end
-			end
+			#   end
+			# end
 		# end
 
 # #MOCK ONE
@@ -51,7 +51,7 @@ class HomeController < ApplicationController
 		_H = params[:H]
 		_Q = params[:Q]
 		_R = params[:R]
-		payload = @parsedMessage['payload']
+		# payload = @parsedMessage['payload']
 	
 		puts "-----START-------------"
 		puts $output
@@ -60,28 +60,28 @@ class HomeController < ApplicationController
 
 		# @runner = %x(./dist/exetester.exe #{w} #{h} #{shapes} )
 		# @runner = %x(./dist/exetester.exe #{w} #{h} #{shapes} #{beacons} #{_A} #{_H} #{_Q} #{_R} #{1} #{2} #{payload} )
-		@runner = %x(./dist/tracker_exe.exe "#{w}" "#{h}" "#{shapes}" "#{beacons}" "#{_A}" "#{_H}" "#{_Q}" "#{_R}" "#{output[3]}" "#{output[2]}" "#{payload}" )
+		# @runner = %x(./dist/tracker_exe.exe "#{w}" "#{h}" "#{shapes}" "#{beacons}" "#{_A}" "#{_H}" "#{_Q}" "#{_R}" "#{output[3]}" "#{output[2]}" "#{payload}" )
 
 
-		if @runner != ""
-			i = 0
-			output_x = "["
-			@runner.each_line do |line|
-				# puts line
-				if line.strip != ""
-					if i < 3
-						$output[i] = line.strip
-						i = i + 1
-					else
-						output_x += line.strip + ";"
-					end
-				end
-			end
-			$output[3] = output_x + "]"
-		end
+		# if @runner != ""
+		# 	i = 0
+		# 	output_x = "["
+		# 	@runner.each_line do |line|
+		# 		# puts line
+		# 		if line.strip != ""
+		# 			if i < 3
+		# 				$output[i] = line.strip
+		# 				i = i + 1
+		# 			else
+		# 				output_x += line.strip + ";"
+		# 			end
+		# 		end
+		# 	end
+		# 	$output[3] = output_x + "]"
+		# end
 
 
-		gon.watch.target = [$output[0].split(),$output[1].split()]
+		# gon.watch.target = [$output[0].split(),$output[1].split()]
 
 		# respond_to do |format|
 		#   format.html
