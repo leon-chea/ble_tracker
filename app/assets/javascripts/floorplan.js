@@ -22,6 +22,9 @@ function main() {
 	document.getElementById('canvas').width = DISPLAY_WIDTH;
 	document.getElementById('canvas').height = DISPLAY_HEIGHT;
 
+	if ((localStorage.getItem("dimensions_width") == null) || (localStorage.getItem("dimensions_height") == null)) {
+		resizeBorder(canvas);
+	}
 	updateCanvasSize(canvas,parseFloat(localStorage.getItem("dimensions_width")),parseFloat(localStorage.getItem("dimensions_height")));
 
 	canvas.setShapes(JSON.parse(localStorage.getItem("shapes")));
@@ -210,10 +213,6 @@ function main() {
 }
 
 function updateCanvasSize(state,width,height) {
-	if (width==null || height==null) {
-		width = 300;
-		height = 300;
-	}
 	var scale_width = DISPLAY_WIDTH/width;
 	var scale_height = DISPLAY_HEIGHT/height;
 
