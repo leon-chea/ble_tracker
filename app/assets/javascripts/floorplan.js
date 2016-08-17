@@ -22,16 +22,23 @@ function main() {
 	document.getElementById('canvas').width = DISPLAY_WIDTH;
 	document.getElementById('canvas').height = DISPLAY_HEIGHT;
 
+
 	if ((localStorage.getItem("dimensions_width") == null) || (localStorage.getItem("dimensions_height") == null)) {
 		resizeBorder(canvas);
 	}
 	updateCanvasSize(canvas,parseFloat(localStorage.getItem("dimensions_width")),parseFloat(localStorage.getItem("dimensions_height")));
 
+
+	if ((localStorage.getItem("shapes") == null)) {
+    	localStorage.setItem("shapes","");
+    	localStorage.setItem("beacons","");
+    	localStorage.setItem("obstacles","");
+    	localStorage.setItem("doors","");
+	}
 	canvas.setShapes(JSON.parse(localStorage.getItem("shapes")));
 	canvas.setBeacons(JSON.parse(localStorage.getItem("beacons")));
 	canvas.setObstacles(JSON.parse(localStorage.getItem("obstacles")));
 	canvas.setDoors(JSON.parse(localStorage.getItem("doors")));
-
 
 	// document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("doors")).textContent;
 
