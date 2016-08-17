@@ -210,6 +210,10 @@ function main() {
 }
 
 function updateCanvasSize(state,width,height) {
+	if (width==null || height==null) {
+		width = 300;
+		height = 300;
+	}
 	var scale_width = DISPLAY_WIDTH/width;
 	var scale_height = DISPLAY_HEIGHT/height;
 
