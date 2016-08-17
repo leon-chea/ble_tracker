@@ -10,17 +10,17 @@ class HomeController < ApplicationController
 		# Thread.new do
 			# sleep(1)
 
-			MQTT::Client.connect('192.168.0.14',1883) do |c|
-			  # If you pass a block to the get method, then it will loop
-			  c.get('bledata') do |topic,message|
-					@parsedMessage ||= JSON.parse(message)
-					gon.watch.parsedMessage = @parsedMessage
-					# gon.JSON_message = @parsedMessage
-					# puts @parsedMessage['payload'][7]
-					break
+			# MQTT::Client.connect('192.168.0.14',1883) do |c|
+			#   # If you pass a block to the get method, then it will loop
+			#   c.get('bledata') do |topic,message|
+			# 		@parsedMessage ||= JSON.parse(message)
+			# 		gon.watch.parsedMessage = @parsedMessage
+			# 		# gon.JSON_message = @parsedMessage
+			# 		# puts @parsedMessage['payload'][7]
+			# 		break
 
-			  end
-			end
+			#   end
+			# end
 		# end
 
 # #MOCK ONE
@@ -51,8 +51,11 @@ class HomeController < ApplicationController
 		_H = params[:H]
 		_Q = params[:Q]
 		_R = params[:R]
-		payload = @parsedMessage['payload']
+		# payload = @parsedMessage['payload']
 	
+
+		payload = "{2,1,6,26,255,76,0,2,21,0,255,0,5,12}"
+
 		puts "-----START-------------"
 		puts $output
 		puts "--------END----------"
