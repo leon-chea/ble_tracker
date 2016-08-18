@@ -42,8 +42,6 @@ class HomeController < ApplicationController
 
 		w = params[:dimensions_width]
 		h = params[:dimensions_height]
-		# w = '4'
-		# h = '6'
 		# beacons = '[4 0 ; 0 0 ; 0 6; 4 6]'
 		shapes = params[:shapes]
 		beacons = params[:beacons]
@@ -61,8 +59,6 @@ class HomeController < ApplicationController
 		puts "--------END----------"
 		
 
-		# @runner = %x(./dist/exetester.exe #{w} #{h} #{shapes} )
-		# @runner = %x(./dist/exetester.exe #{w} #{h} #{shapes} #{beacons} #{_A} #{_H} #{_Q} #{_R} #{1} #{2} #{payload} )
 		@runner = %x(./dist/tracker_exe.exe "#{w}" "#{h}" "#{shapes}" "#{beacons}" "#{_A}" "#{_H}" "#{_Q}" "#{_R}" "#{output[3]}" "#{output[2]}" "#{payload}" )
 
 
@@ -85,12 +81,6 @@ class HomeController < ApplicationController
 
 
 		gon.watch.target = [$output[0].split(),$output[1].split()]
-
-		# respond_to do |format|
-		#   format.html
-		#   format.json
-
-		# end
 
 
 

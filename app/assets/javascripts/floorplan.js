@@ -14,7 +14,7 @@ function main() {
     	alert("ERROR: localStorage unavailable.");
     }
 
-	document.getElementById("dummy").innerText = document.createTextNode("revision:" + 59).textContent;
+	// document.getElementById("dummy").innerText = document.createTextNode("revision:" + 59).textContent;
 
 
 	var canvas = new Canvas(document.getElementById('canvas'));
@@ -40,7 +40,8 @@ function main() {
 	canvas.setObstacles(JSON.parse(localStorage.getItem("obstacles")));
 	canvas.setDoors(JSON.parse(localStorage.getItem("doors")));
 
-	// document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("doors")).textContent;
+	document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("shapes") + " " + localStorage.getItem("doors")
+		+ " " + localStorage.getItem("obstacles") + " " + localStorage.getItem("beacons")).textContent; 
 
 
 	// s.addRoom(new Room(s, 260, 70, 60, 65));

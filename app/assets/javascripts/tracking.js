@@ -36,8 +36,8 @@ function main() {
 	canvas.setDoors(JSON.parse(localStorage.getItem("doors")));
 
 
-	document.getElementById("fooBar").innerText = document.createTextNode("revision:" + 56).textContent;
-	document.getElementById("fooBar").innerText = document.createTextNode(canvas.toStringShapes()).textContent;
+	// document.getElementById("fooBar").innerText = document.createTextNode("revision:" + 56).textContent;
+	// document.getElementById("fooBar").innerText = document.createTextNode(canvas.toStringShapes()).textContent;
 
 
 
@@ -88,6 +88,6 @@ function test(message) {
 }
 
 function update(target) {
-	document.getElementById("fooBar").innerText = document.createTextNode(target[0][0]+ " " + target[0][1] + " " + target[1][0] + " " + target[1][1]).textContent;
+	// document.getElementById("fooBar").innerText = document.createTextNode(target[0][0]+ " " + target[0][1] + " " + target[1][0] + " " + target[1][1]).textContent;
 	canvas.setTarget(parseFloat(target[0][0]),parseFloat(target[0][1]),parseFloat(target[1][0]),parseFloat(target[1][1]));
 }

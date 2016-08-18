@@ -32,7 +32,7 @@ Beacon.prototype.setColor = function(color) {
 
 // Restore original color of shape
 Beacon.prototype.restoreColor = function() {
-	this.color = ROOM_COLOR;
+	this.color = BEACON_COLOR;
 };
 
 // Determine if a point is inside the bounds of the rectangle

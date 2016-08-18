@@ -21,9 +21,9 @@ Door.prototype.draw = function(ctx) {
 
 	ctx.fillStyle = this.color;
 	if (this.w == 0) {
-		ctx.fillRect(this.x-1,this.y,2,this.h);		
+		ctx.fillRect(this.x-2,this.y,6,this.h);		
 	} else {
-		ctx.fillRect(this.x,this.y-1,this.w,2);		
+		ctx.fillRect(this.x,this.y-2,this.w,6);		
 	}
 };
 
