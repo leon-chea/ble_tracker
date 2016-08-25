@@ -53,6 +53,20 @@ function main() {
 	};
 
 	document.getElementById("add").onclick = function() {
+		if (canvas.jointType=="corner") {
+			document.getElementById("radio_room").disabled = false;
+		} else {
+			document.getElementById("radio_room").disabled = true;
+			document.getElementById("radio_room").checked = false;
+		}
+
+		if ((canvas.jointType=="vertical") || (canvas.jointType=="horizontal")) {
+			document.getElementById("radio_door").disabled = false;
+		} else {
+			document.getElementById("radio_door").disabled = true;
+			document.getElementById("radio_door").checked = false;
+		}
+
 		document.getElementById('object_dialogue').style.display = "block";
 	};
 
@@ -92,7 +106,6 @@ function main() {
   		save(canvas);
 	};
 
-
 	//----------------------ADD OBJECT DIALOGUE------------------------------//
 	document.getElementById("add_object").onclick = function() {
 		var form = document.getElementById("object_form");
@@ -111,6 +124,17 @@ function main() {
 
 			}
 		}
+
+
+		// Modify door dialogue based on jointType
+		if (canvas.jointType=="vertical") {
+			document.getElementById("upwards").innerHTML = "Open Upwards";
+			document.getElementById("downwards").innerHTML = "Open Downwards";
+		}  else if (canvas.jointType=="horizontal") {
+			document.getElementById("upwards").innerHTML = "Open Leftwards";
+			document.getElementById("downwards").innerHTML = "Open Rightwards";
+		}
+
 	};
 
 	document.getElementById("cancel_object").onclick = function() {
@@ -148,10 +172,38 @@ function main() {
 	document.getElementById("add_door").onclick = function() {
 		var form = document.getElementById("door_form");
 
-		var x = parseInt(form.elements[0].value);
-		var y = parseInt(form.elements[1].value);
-		var w = parseInt(form.elements[2].value);
-		var h = parseInt(form.elements[3].value);
+		var x, y, w, h;
+
+		if (canvas.jointType=="vertical") {
+			if (form.elements[3].checked) {
+			 	// open upwards
+			 	w = 0;
+			 	h = parseInt(form.elements[2].value);
+			 	x = parseInt(form.elements[0].value);
+			 	y = parseInt(form.elements[1].value) - h;
+			} else {
+				// open downwards
+				w = 0;
+			 	h = parseInt(form.elements[2].value);
+			 	x = parseInt(form.elements[0].value);
+			 	y = parseInt(form.elements[1].value);
+			} 
+		} else if (canvas.jointType=="horizontal") {
+			if (form.elements[3].checked) {
+			 	// open leftwards
+			 	w = parseInt(form.elements[2].value);
+			 	h = 0
+			 	x = parseInt(form.elements[0].value) - w;
+			 	y = parseInt(form.elements[1].value);
+			} else {
+				// open downwards
+				w = parseInt(form.elements[2].value);
+			 	h = 0
+			 	x = parseInt(form.elements[0].value);
+			 	y = parseInt(form.elements[1].value);
+			}
+		}
+
 
 		if ((x>=0) && (y>=0) && (w>=0) && (h>=0)) {
 			canvas.addDoor(new Door(canvas,x,y,w,h));

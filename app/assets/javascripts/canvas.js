@@ -40,7 +40,7 @@ function Canvas(canvas) {
 
 
 	this.dragging = false; // Keep track of when we are dragging
-	this.corner = []; // Keep track of whether we are at corner of room
+	this.isJoint = ""; // Keep track of whether we are at corner or edge of room
 	this.addPoint = []; // Position to add object
 	// the current selected object. In the future we could turn this into an array for multiple selection
 	this.selection = null;
@@ -84,7 +84,7 @@ function Canvas(canvas) {
 		// check whether door is selected
 		l = myState.doors.length;
 		for (i = l-1; i >= 0; i -= 1) {
-			if (myState.doors[i].contains(mx, my)) {
+			if (myState.doors[i].contains(mx, my, myState.scale_width, myState.scale_height)) {
 				mySel = myState.doors[i];
 				// Keep track of where in the object we clicked
 				// so we can move it smoothly (see mousemove)
@@ -162,9 +162,26 @@ function Canvas(canvas) {
 		} else {
 			var l = shapes.length;
 			for (i = 0; i < l; i += 1) {
-				myState.corner = shapes[i].atCorner(mx,my,myState.scale_width);
-				if (myState.corner.length > 0) {
-					// alert(myState.corner);
+				// check if at corner
+				myState.isJoint = shapes[i].atCorner(mx,my,myState.scale_width);
+				if (myState.isJoint.length > 0) {
+					// alert(myState.isJoint);
+					self.style.cursor = 'crosshair';
+					break;
+				}
+
+				// check if at vertical edge
+				myState.isJoint = shapes[i].atVerticalEdge(mx,my,myState.scale_width);
+				if (myState.isJoint.length > 0) {
+					// alert(myState.isJoint);
+					self.style.cursor = 'crosshair';
+					break;
+				}
+
+				// check if at horizontal edge
+				myState.isJoint = shapes[i].atHorizontalEdge(mx,my,myState.scale_width);
+				if (myState.isJoint.length > 0) {
+					// alert(myState.isJoint);
 					self.style.cursor = 'crosshair';
 					break;
 				}
@@ -202,11 +219,11 @@ function Canvas(canvas) {
 
 	// // double click for making new shapes
 	// canvas.addEventListener('dblclick', function(e) {
-	// 	if (myState.corner.length > 0) {
+	// 	if (myState.isJoint.length > 0) {
 	// 		var text = prompt("Please enter room details in form \"width,height\"","100,100");
 	// 		if (text != null) {
 	// 			var str = text.split(',');
-	// 			myState.addRoom(new Room(myState,parseInt(myState.corner[0]),parseInt(myState.corner[1]),parseInt(str[0]),parseInt(str[1])));
+	// 			myState.addRoom(new Room(myState,parseInt(myState.isJoint[0]),parseInt(myState.isJoint[1]),parseInt(str[0]),parseInt(str[1])));
 	// 		}
 	// 	}
 	// }, true);
@@ -215,7 +232,14 @@ function Canvas(canvas) {
 	canvas.addEventListener('dblclick', function(e) {
 		myState.addPoint = []; 
 		var mouse = myState.getMouse(e);
-		myState.addPoint = [mouse.x, mouse.y];
+
+		if (myState.isJoint.length > 0) {
+			myState.jointType = myState.isJoint[0];
+			myState.addPoint = myState.isJoint[1];
+		} else {
+			myState.jointType = "";
+			myState.addPoint = [mouse.x, mouse.y];
+		}
 
 		myState.valid = false;
 	}, true);
@@ -316,7 +340,7 @@ Canvas.prototype.draw = function() {
 
 		l = doors.length;
 		for (i = 0; i < l; i += 1) {
-			doors[i].draw(ctx);
+			doors[i].draw(ctx,this.scale_width,this.scale_height);
 		}
 
 		l = beacons.length;

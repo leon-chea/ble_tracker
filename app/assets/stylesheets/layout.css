@@ -1,7 +1,23 @@
 #banner {
+	text-align: left;
+	color: white;
+	background-color: lightblue;
+	text-indent: 25px ;
+}
+
+#menu_top{
 	text-align: center;
 	color: white;
-	background-color: lightblue
+	background-color: lightblue;
+	text-indent: 25px ;
+
+}
+
+/*http://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_float_advanced*/
+a.hyperlink:visited, .hyperlink a:link, .hyperlink a:hover, .hyperlink a:active {
+    text-decoration: none !important;
+    color: green;
+
 }
 
 h1 {
@@ -38,8 +54,8 @@ body {
 
 
 p {
-    font-family: verdana;
-    font-size: 20px;
+    /*font-family: verdana;*/
+    /*font-size: 20px;*/
 }
 
 .dialogue {

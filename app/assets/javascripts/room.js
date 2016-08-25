@@ -56,18 +56,43 @@ Room.prototype.atCorner = function(mx, my, scale_width) {
 	var click_space = CLICK_SPACE/scale_width;
 
 	if ((this.x - click_space <= mx) && (this.x + click_space >= mx) && (this.y - click_space <= my) && (this.y + click_space >= my)) {
-		return [this.x, this.y];
+		return ["corner",[this.x, this.y]];
 	} else if (((this.x + this.w) - click_space <= mx) && ((this.x + this.w) + click_space >= mx) && (this.y - click_space <= my) && (this.y + click_space >= my)) {
-		return [this.x + this.w, this.y];
+		return ["corner",[this.x + this.w, this.y]];
 	} else if ((this.x - click_space <= mx) && (this.x + click_space >= mx) && ((this.y + this.h) - click_space <= my) && ((this.y + this.h) + click_space >= my)) {
-		return [this.x, this.y + this.h];
+		return ["corner",[this.x, this.y + this.h]];
 	} else if (((this.x + this.w) - click_space <= mx) && ((this.x + this.w) + click_space >= mx) && ((this.y + this.h) - click_space <= my) && ((this.y + this.h) + click_space >= my)) {
-		return [this.x + this.w, this.y + this.h];
+		return ["corner",[this.x + this.w, this.y + this.h]];
 	}
 	return [];
+};
 
-	// return  ((mx == this.x) && (my == this.y)) || ((mx == this.x + this.w) && (my == this.y)) || 
-	// 	((mx == this.x) && (my == this.y + this.h)) || ((mx == this.x + this.w) && (my == this.y + this.h));
+// Determine if cursor is at vertical edge
+Room.prototype.atVerticalEdge = function(mx, my, scale_width) {
+	"use strict";
+
+	var click_space = CLICK_SPACE/scale_width;
+
+	if ((this.x - click_space <= mx) && (this.x + click_space >= mx) && (this.y <= my) && (this.y + this.h >= my)) {
+		return ["vertical",[this.x, my]];
+	} else if (((this.x + this.w) - click_space <= mx) && ((this.x + this.w) + click_space >= mx) && (this.y <= my) && (this.y + this.h >= my)) {
+		return ["vertical",[this.x + this.w, my]];
+	}
+	return [];
+};
+
+// Determine if cursor is at horizontal edge
+Room.prototype.atHorizontalEdge = function(mx, my, scale_width) {
+	"use strict";
+
+	var click_space = CLICK_SPACE/scale_width;
+
+	if ((this.y - click_space <= my) && (this.y + click_space >= my) && (this.x <= mx) && (this.x + this.w >= mx)) {
+		return ["horizontal",[mx, this.y]];
+	} else if (((this.y + this.h) - click_space <= my) && ((this.y + this.h) + click_space >= my) && (this.x <= mx) && (this.x + this.w >= mx)) {
+		return ["horizontal",[mx, this.y + this.h]];
+	}
+	return [];
 };
 
 Room.prototype.toArray = function() {
