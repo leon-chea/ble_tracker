@@ -44,6 +44,8 @@ function main() {
 		+ " " + localStorage.getItem("obstacles") + " " + localStorage.getItem("beacons")).textContent; 
 
 
+	 document.getElementById('floor').src = "data:image/png;base64," + localStorage.getItem("image");
+
 	// s.addRoom(new Room(s, 260, 70, 60, 65));
 	// s.addRoom(new Room(s, 240, 120, 40, 40));  
 	// s.addRoom(new Room(s, 5, 60, 25, 25));
@@ -330,6 +332,43 @@ function save(state) {
 	});
 
 
+}
+
+
+function loadFloor(){
+   var fileReader  = new FileReader();
+
+   var floor = document.getElementById('floor');
+   var image_floor = document.getElementById('image_floor').files[0]; 
+
+   fileReader.onloadend = function () {
+   		floor.src = fileReader.result;
+		localStorage.setItem("image",getBase64Image(floor))
+   }
+
+   if (image_floor) {
+       fileReader.readAsDataURL(image_floor); 
+   } else {
+       floor.src = "";
+       	localStorage.setItem("image","")
+   }
+
+
+}
+
+// http://stackoverflow.com/questions/19183180/how-to-save-an-image-to-localstorage-and-display-it-on-the-next-page
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 300;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
 

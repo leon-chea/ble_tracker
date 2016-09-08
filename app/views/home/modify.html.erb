@@ -27,10 +27,16 @@
   		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
     		ERROR: Your browser does not support HTML5 Canvas.
   		</canvas>
+
+  		<img id="floor" width="400" height="300" src="" align="right">
+
 	</div>
 </body>
 
+
+
 <br />
+
 
 <div class="btn-group-horizontal">
 	<button type="button" class="btn btn-primary" id="resize_border">Resize Map</button>
@@ -38,12 +44,18 @@
 	<button type="button" class="btn btn-primary" id="delete">Delete</button>
 	<button type="button" class="btn btn-primary" id="save">Save</button>
 
+
 	<!-- <input type="button" id="save" value="Save"> -->
 	<!-- <input type="button" id="resize_border" value="Resize Border"> -->
 	<!-- <input type="button" id="add" value="Add"> -->
 	<!-- <input type="button" id="delete" value="Delete"> -->
 </div>
 
+
+<center>
+	<br />
+	<input type="file" id="image_floor" class="btn btn-primary" onchange="loadFloor()">
+</center>
 
 <div id="object_dialogue" class="dialogue"> 
 	<div class="dialogue_main">
@@ -161,6 +173,7 @@
 <p id="dummy">dummy</p>
 
  <!-- <p>MESSAGE: <%= @userid %></p> -->
+
 
 
 

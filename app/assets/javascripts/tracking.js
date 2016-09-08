@@ -39,6 +39,7 @@ function main() {
 	// document.getElementById("fooBar").innerText = document.createTextNode("revision:" + 56).textContent;
 	// document.getElementById("fooBar").innerText = document.createTextNode(canvas.toStringShapes()).textContent;
 
+	 document.getElementById('floor').src = "data:image/png;base64," + localStorage.getItem("image");
 
 
 
