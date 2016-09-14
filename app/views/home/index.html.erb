@@ -9,44 +9,59 @@
 
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<div id="banner"> 
-	<h1> BLE Tracker </h1>
-<!-- 	<h2>School of Computer Science</h2>
-	<h2>The University of Adelaide</h2> -->
 
-</div>
+<%= render 'shared/navigation' %>
 
-<div id="menu_top">
-	Start Tracking
-	<p style="display:inline">.</p> 
-	<%= link_to "Modify Map", {action: "modify", class: 'hyperlink'}, method: :get %>
+<ul class="nav nav-tabs" role="tablist">
+	<li class="active"><%= link_to 'Start Tracking', {action: "index", class: 'hyperlink'}, method: :get %></li>
+	<li><%= link_to "Modify Map", {action: "modify", class: 'hyperlink'}, method: :get %></li>
+</ul>
 
-</div>
+
+
+<body>
+
+	<div id="main" class="container-fluid">
+
+		<br />
+
+        <div class="row">
+
+	        <div class="col-xs-6">
+				<body onpageshow="main()">
+					<div id="container">
+				  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
+				    		ERROR: Your browser does not support HTML5 Canvas.
+				  		</canvas>
+					</div>
+				</body>	    
+		    </div>
+
+	        <div class="col-xs-6">
+            	<img id="floor" width="400" height="300" src="">
+	        </div>
+
+        </div>
+
+		<br />
+
+    </div>
+</body>
 
 <br />
+<br />
+<br />
+<br />
 
+
+<footer class="container-fluid text-center">
+  	<p>Auto-ID Lab, School of Computer Science, The University of Adelaide</p>
+</footer>
 
 
  <!-- <p>MESSAGE: <%= @message %></p> -->
 
  <!-- <p>MESSAGE: <%= @userid %></p> -->
-
-
- <body onpageshow="main()">
-	<div id="container">
-  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
-    		ERROR: Your browser does not support HTML5 Canvas.
-  		</canvas>
-
-  		<img id="floor" width="400" height="300" src="" align="right">
-
-	</div>
-</body>
-
-<br />
-
-
-
 
 
 <!-- <p id="fooBar">Fields:</p> -->

@@ -5,160 +5,176 @@
  <%= javascript_include_tag('canvas.js') %>
  <%= javascript_include_tag('floorplan.js') %>
 
+
+
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<div id="banner"> 
-	<h1> BLE Tracker </h1>
-<!-- 	<h2>School of Computer Science</h2>
-	<h2>The University of Adelaide</h2> -->
 
-</div>
+<%= render 'shared/navigation' %>
 
-<div id="menu_top">
-	<%= link_to "Start Tracking", {action: "index", class: 'hyperlink'}, method: :get %>
-	<p style="display:inline">.</p> 
-	Edit Map
-</div>
+<!-- <ul class="nav navbar-nav navbar-right">
+	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+</ul> -->
 
-<br />
 
- <body onpageshow="main()">
-	<div id="container">
-  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
-    		ERROR: Your browser does not support HTML5 Canvas.
-  		</canvas>
+<ul class="nav nav-tabs" role="tablist">
+	<li><%= link_to 'Start Tracking', {action: "index", class: 'hyperlink'}, method: :get %></li>
+	<li class="active"><%= link_to "Modify Map", {action: "modify", class: 'hyperlink'}, method: :get %></li>
+</ul>
 
-  		<img id="floor" width="400" height="300" src="" align="right">
 
-	</div>
+
+
+
+<body>
+
+	<div id="main" class="container-fluid">
+
+		<br />
+
+        <div class="row">
+
+	        <div class="col-xs-6">
+				<body onpageshow="main()">
+					<div id="container">
+				  		<canvas id="canvas" width="400" height="300" style="border: 1px solid black;">
+				    		ERROR: Your browser does not support HTML5 Canvas.
+				  		</canvas>
+					</div>
+				</body>	    
+		    </div>
+
+	        <div class="col-xs-6">
+            	<img id="floor" width="400" height="300" src="">
+	        </div>
+
+        </div>
+
+		<br />
+
+        <div class="btn-group-horizontal">
+			<button type="button" class="btn btn-primary" id="resize_border">Resize Map</button>
+			<button type="button" class="btn btn-primary" id="add">Add</button>
+			<button type="button" class="btn btn-primary" id="delete">Delete</button>
+			<button type="button" class="btn btn-primary" id="save">Save</button>
+
+
+			<!-- <input type="button" id="save" value="Save"> -->
+			<!-- <input type="button" id="resize_border" value="Resize Border"> -->
+			<!-- <input type="button" id="add" value="Add"> -->
+			<!-- <input type="button" id="delete" value="Delete"> -->
+		</div>
+
+
+		<center>
+			<br />
+			<input type="file" id="image_floor" class="btn btn-primary" onchange="loadFloor()">
+		</center>
+
+		<div id="object_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Select what you want to add: </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="object_form">
+						<input type="radio" name="object" id="radio_room" value="room"> <label>Room</label> <br />
+						<input type="radio" name="object" id="radio_door" value="door"> <label>Door</label> <br />
+						<input type="radio" name="object" value="obstacle"> <label>Obstacle</label> <br />
+						<input type="radio" name="object" value="beacon"> <label>Beacon</label> <br />
+
+						<input type="button" id="add_object" value="OK">
+						<input type="button" id="cancel_object" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
+
+		<div id="room_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Add New Room </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="room_form">
+						X-coordinate: <input type="text" name="x"> <br />
+						Y-coordinate: <input type="text" name="y"> <br />
+						Width: <input type="text" name="w"> <br />
+						Height: <input type="text" name="h"> <br />
+						<input type="button" id="add_room" value="OK">
+						<input type="button" id="cancel_room" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
+
+		<div id="door_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Add New Door </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="door_form">
+						X-coordinate: <input type="text" name="x"> <br />
+						Y-coordinate: <input type="text" name="y"> <br />
+						Door Length: <input type="text" name="w"> <br />
+						<input type="radio" name="object" value="radio_upwards"> <label id="upwards">Open Upwards</label> <br />
+						<input type="radio" name="object" value="radio_downwards" checked="checked"> <label id="downwards">Open Downwards</label> <br />
+
+						<input type="button" id="add_door" value="OK">
+						<input type="button" id="cancel_door" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
+
+		<div id="obstacle_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Add New Obstacle </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="obstacle_form">
+						X-coordinate: <input type="text" name="x"> <br />
+						Y-coordinate: <input type="text" name="y"> <br />
+						Width: <input type="text" name="w"> <br />
+						Height: <input type="text" name="h"> <br />
+						<input type="button" id="add_obstacle" value="OK">
+						<input type="button" id="cancel_obstacle" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
+
+		<div id="beacon_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Add New Beacon </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="beacon_form">
+						X-coordinate: <input type="text" name="x"> <br />
+						Y-coordinate: <input type="text" name="y"> <br />
+						Beacon ID: <input type="text" name="id"> <br />
+						<input type="button" id="add_beacon" value="OK">
+						<input type="button" id="cancel_beacon" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+    </div>
 </body>
 
 
-
-<br />
-
-
-<div class="btn-group-horizontal">
-	<button type="button" class="btn btn-primary" id="resize_border">Resize Map</button>
-	<button type="button" class="btn btn-primary" id="add">Add</button>
-	<button type="button" class="btn btn-primary" id="delete">Delete</button>
-	<button type="button" class="btn btn-primary" id="save">Save</button>
-
-
-	<!-- <input type="button" id="save" value="Save"> -->
-	<!-- <input type="button" id="resize_border" value="Resize Border"> -->
-	<!-- <input type="button" id="add" value="Add"> -->
-	<!-- <input type="button" id="delete" value="Delete"> -->
-</div>
-
-
-<center>
-	<br />
-	<input type="file" id="image_floor" class="btn btn-primary" onchange="loadFloor()">
-</center>
-
-<div id="object_dialogue" class="dialogue"> 
-	<div class="dialogue_main">
-		<div class="dialogue_header">
-			<p> Select what you want to add: </p>
-		</div>
-
-		<div class="dialogue_body">
-			<form id="object_form">
-				<input type="radio" name="object" id="radio_room" value="room"> <label>Room</label> <br />
-				<input type="radio" name="object" id="radio_door" value="door"> <label>Door</label> <br />
-				<input type="radio" name="object" value="obstacle"> <label>Obstacle</label> <br />
-				<input type="radio" name="object" value="beacon"> <label>Beacon</label> <br />
-
-				<input type="button" id="add_object" value="OK">
-				<input type="button" id="cancel_object" value="Cancel">
-			</form>	
-		</div>
-	</div>
-</div>
-
-
-<div id="room_dialogue" class="dialogue"> 
-	<div class="dialogue_main">
-		<div class="dialogue_header">
-			<p> Add New Room </p>
-		</div>
-
-		<div class="dialogue_body">
-			<form id="room_form">
-				X-coordinate: <input type="text" name="x"> <br />
-				Y-coordinate: <input type="text" name="y"> <br />
-				Width: <input type="text" name="w"> <br />
-				Height: <input type="text" name="h"> <br />
-				<input type="button" id="add_room" value="OK">
-				<input type="button" id="cancel_room" value="Cancel">
-			</form>	
-		</div>
-	</div>
-</div>
-
-
-<div id="door_dialogue" class="dialogue"> 
-	<div class="dialogue_main">
-		<div class="dialogue_header">
-			<p> Add New Door </p>
-		</div>
-
-		<div class="dialogue_body">
-			<form id="door_form">
-				X-coordinate: <input type="text" name="x"> <br />
-				Y-coordinate: <input type="text" name="y"> <br />
-				Door Length: <input type="text" name="w"> <br />
-				<input type="radio" name="object" value="radio_upwards"> <label id="upwards">Open Upwards</label> <br />
-				<input type="radio" name="object" value="radio_downwards" checked="checked"> <label id="downwards">Open Downwards</label> <br />
-
-				<input type="button" id="add_door" value="OK">
-				<input type="button" id="cancel_door" value="Cancel">
-			</form>	
-		</div>
-	</div>
-</div>
-
-
-<div id="obstacle_dialogue" class="dialogue"> 
-	<div class="dialogue_main">
-		<div class="dialogue_header">
-			<p> Add New Obstacle </p>
-		</div>
-
-		<div class="dialogue_body">
-			<form id="obstacle_form">
-				X-coordinate: <input type="text" name="x"> <br />
-				Y-coordinate: <input type="text" name="y"> <br />
-				Width: <input type="text" name="w"> <br />
-				Height: <input type="text" name="h"> <br />
-				<input type="button" id="add_obstacle" value="OK">
-				<input type="button" id="cancel_obstacle" value="Cancel">
-			</form>	
-		</div>
-	</div>
-</div>
-
-
-<div id="beacon_dialogue" class="dialogue"> 
-	<div class="dialogue_main">
-		<div class="dialogue_header">
-			<p> Add New Beacon </p>
-		</div>
-
-		<div class="dialogue_body">
-			<form id="beacon_form">
-				X-coordinate: <input type="text" name="x"> <br />
-				Y-coordinate: <input type="text" name="y"> <br />
-				Beacon ID: <input type="text" name="id"> <br />
-				<input type="button" id="add_beacon" value="OK">
-				<input type="button" id="cancel_beacon" value="Cancel">
-			</form>	
-		</div>
-	</div>
-</div>
-
-<br />
 
 <!-- <input type="button" id="new_door" value="New Door">
  --><!-- <input type="button" id="delete_door" value="Delete Door"> -->
@@ -167,12 +183,66 @@
 <!-- <input type="button" id="add_beacon" value="Add Beacon">
  --><!-- <input type="button" id="delete_beacon" value="Delete Beacon"> -->
 
-
+<br />
+<br />
+<br />
 
 
 <p id="dummy">dummy</p>
 
  <!-- <p>MESSAGE: <%= @userid %></p> -->
+
+
+<!-- <nav class="navbar navbar-inverse">
+
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+    
+  </div>
+
+</nav> -->
+  
+<!-- <div class="container-fluid text-center">    
+  <div class="row content">
+
+    <div class="col-sm-8 text-left"> 
+      <h1>Welcome</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <hr>
+      <h3>Test</h3>
+      <p>Lorem ipsum...</p>
+    </div>
+
+  </div>
+</div> -->
+
+
+
+<!-- <img width="40" height="30" src="/images/autoid_lab_logo.jpg"> -->
+
+<footer class="container-fluid text-center">
+  	<p>Auto-ID Lab, School of Computer Science, The University of Adelaide</p>
+</footer>
 
 
 

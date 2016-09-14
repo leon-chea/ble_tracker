@@ -1,5 +1,21 @@
+#title {
+    font-size: 30pt;
+}
+
 #banner {
-	text-align: left;
+    background-color: lightblue;
+}
+
+#menu_icons {
+    font-size: 20pt;
+}
+
+body {
+    text-align: center;
+}
+
+/*#banner {
+	text-align: left; 30pt
 	color: white;
 	background-color: lightblue;
 	text-indent: 25px ;
@@ -13,7 +29,7 @@
 
 }
 
-/*http://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_float_advanced*/
+http://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_float_advanced
 a.hyperlink:visited, .hyperlink a:link, .hyperlink a:hover, .hyperlink a:active {
     text-decoration: none !important;
     color: green;
@@ -32,7 +48,8 @@ h2 {
 
 body {
 	text-align: center;
-}
+}*/
+
 
 
 /*h1 { 
@@ -54,10 +71,10 @@ body {
 
 
 
-p {
-    /*font-family: verdana;*/
-    /*font-size: 20px;*/
-}
+/*p {
+    font-family: verdana;
+    /*font-size: 20px;
+}*/
 
 .dialogue {
     display: none; /* Hidden by default */

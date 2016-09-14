@@ -306,7 +306,6 @@ Canvas.prototype.draw = function() {
 		ctx.scale(this.scale_width,this.scale_height);
 		// ** Add stuff you want drawn in the background all the time here **
 	
-
 		// draw selection
 		// right now this is just a stroke along the edge of the selected Room
 		if (this.selection !== null) {
@@ -318,6 +317,21 @@ Canvas.prototype.draw = function() {
 			// ctx.strokeRect(mySel.x,mySel.y,mySel.w,mySel.h);
 
 		}
+
+		// --------create a grid --------
+		for (var x = 0.5; x < this.width; x += 100) {
+		  ctx.moveTo(x, 0);
+		  ctx.lineTo(x, this.height);
+		}
+
+		for (var y = 0.5; y < this.height; y += 100) {
+		  ctx.moveTo(0, y);
+		  ctx.lineTo(this.width, y);
+		}
+
+		ctx.strokeStyle = "#bbbbbb";
+		ctx.stroke();
+		// ------------------------------
 
 
 		// draw all shapes
@@ -364,6 +378,7 @@ Canvas.prototype.draw = function() {
      			ADDPOINT_SIZE/this.scale_width, ADDPOINT_SIZE/this.scale_height);
 
 		}
+
 		
 		this.valid = true;
 		ctx.scale(1.0/this.scale_width,1.0/this.scale_height);

@@ -41,6 +41,10 @@ GEM
     airbrussh (1.1.0)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.0)
+    autoprefixer-rails (6.4.1.1)
+      execjs
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     builder (3.2.2)
     capistrano (3.6.0)
       airbrussh (>= 1.0.0)
@@ -185,6 +189,8 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  autoprefixer-rails
+  bootstrap-sass (~> 3.2.0)
   byebug
   capistrano
   capistrano-bundler
