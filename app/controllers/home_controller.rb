@@ -152,14 +152,11 @@ class HomeController < ApplicationController
 	  	change_map = params[:change_map]
 	  	if (!(change_map.blank?))
 	  		session[:map] = Map.find_by(name: change_map)
-	  		# @current_map = Map.find_by(name: change_map)
 
 			respond_to do |format|
 			  format.js {render inline: "location.reload();" }
 			end
 		end
-
-		puts @current_map['name']
 
 	  	
 
