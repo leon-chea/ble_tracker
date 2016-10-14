@@ -29,7 +29,7 @@ function main() {
 	updateCanvasSize(canvas,parseFloat(localStorage.getItem("dimensions_width")),parseFloat(localStorage.getItem("dimensions_height")));
 
 
-	if ((localStorage.getItem("shapes") == null)) {
+	if ((localStorage.getItem("shapes") === null) || (localStorage.getItem("shapes") == "null")) {
     	localStorage.setItem("shapes","[]");
     	localStorage.setItem("beacons","[]");
     	localStorage.setItem("obstacles","[]");
@@ -76,6 +76,10 @@ function main() {
 		canvas.deleteObject();
 	};
 
+	document.getElementById("new_map").onclick = function() {
+		document.getElementById('map_dialogue').style.display = "block";
+	}
+
 	// document.getElementById("new_room").onclick = function() {
  //  		newRoom(canvas);
 	// };
@@ -107,6 +111,82 @@ function main() {
 	document.getElementById("save").onclick = function() {
   		save(canvas);
 	};
+
+
+	// change map
+	gon.maps.forEach(function(map) {
+		document.getElementById("change_map_"+map['name']).onclick = function() {
+
+			$(function() {
+
+				$.ajax({
+					url:"/home/modify",
+					type:"post",
+					data: {
+						'change_map': map['name']
+					},
+					error: function() {
+						alert("ERROR with AJAX");
+					}
+				})
+			});
+
+		    localStorage.setItem("dimensions_width",map['width']);
+		    localStorage.setItem("dimensions_height",map['height']);
+		    localStorage.setItem("shapes",map['shapes']);
+		    localStorage.setItem("beacons",map['beacons']);
+		    localStorage.setItem("obstacles",map['obstacles']);
+		    localStorage.setItem("doors",map['doors']);
+
+		};
+	});
+
+	// document.getElementById("change_map").onclick = function() {
+ //  		alert(document.getElementById("change_map").value);
+	// };
+
+
+	//----------------------ADD MAP DIALOGUE------------------------------//
+	document.getElementById("add_map").onclick = function() {
+		var form = document.getElementById("map_form");
+
+		var name = form.elements[0].value;
+		var w = parseInt(form.elements[1].value);
+		var h = parseInt(form.elements[2].value);
+
+		if ((name.length>0) && (w>0) && (h>0)) {
+			document.getElementById('map_dialogue').style.display = "none";
+
+			$(function() {
+
+				$.ajax({
+					url:"/home/modify",
+					type:"post",
+					data: {
+						'new_map': name,
+						'width': w,
+						'height': h
+					},
+					error: function() {
+						alert("ERROR with AJAX");
+					}
+				})
+			});
+
+		} else {
+			alert("Please fill in all fields with proper values.");
+		}
+
+	};
+
+	document.getElementById("cancel_map").onclick = function() {
+		document.getElementById('map_dialogue').style.display = "none";
+	};
+	//---------------------------------------------------------------------//
+
+
+		
+	
 
 	//----------------------ADD OBJECT DIALOGUE------------------------------//
 	document.getElementById("add_object").onclick = function() {
@@ -322,8 +402,14 @@ function save(state) {
 			type:"post",
 			// data: {'id':102,'name':'bob'},
 			data: {
+				'update_map': true,
 				'dimensions_width': localStorage.getItem("dimensions_width"),
-				'dimensions_height': localStorage.getItem("dimensions_height")
+				'dimensions_height': localStorage.getItem("dimensions_height"),
+				'save_shapes': JSON.stringify(state.getShapes()),
+				'save_beacons': JSON.stringify(state.getBeacons()),
+				'save_obstacles': JSON.stringify(state.getObstacles()),
+				'save_doors': JSON.stringify(state.getDoors())
+
 			},
 			error: function() {
 				alert("ERROR with AJAX");

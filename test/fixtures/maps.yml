@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  width: 1
+  height: 1
+  shapes: MyString
+  beacons: MyString
+  obstacles: MyString
+  doors: MyString
+
+two:
+  name: MyString
+  width: 1
+  height: 1
+  shapes: MyString
+  beacons: MyString
+  obstacles: MyString
+  doors: MyString

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :maps
+  resources :homes
   get 'home/index'
 
   get 'home/modify'

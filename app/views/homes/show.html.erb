@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @home.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @home.height %>
+</p>
+
+<p>
+  <strong>Shapes:</strong>
+  <%= @home.shapes %>
+</p>
+
+<p>
+  <strong>Beacons:</strong>
+  <%= @home.beacons %>
+</p>
+
+<p>
+  <strong>Obstacles:</strong>
+  <%= @home.obstacles %>
+</p>
+
+<p>
+  <strong>Doors:</strong>
+  <%= @home.doors %>
+</p>
+
+<%= link_to 'Edit', edit_home_path(@home) %> |
+<%= link_to 'Back', homes_path %>

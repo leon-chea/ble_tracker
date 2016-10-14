@@ -121,6 +121,50 @@ class HomeController < ApplicationController
 	  		puts $output
 	  	end
 
+	  	# Check saving updated map
+	  	save_shapes = params[:save_shapes]
+	  	save_beacons = params[:save_beacons]
+	  	save_obstacles = params[:save_obstacles]
+	  	save_doors = params[:save_doors]
+	  	if (params[:update_map])
+	  		puts "updating..."
+	  		Map.find_by(name: session[:map]['name']).update(shapes: save_shapes, beacons: save_beacons, obstacles: save_obstacles, doors: save_doors)
+	  	end
+
+	  	# Check adding new map
+	  	home_name = params[:new_map]
+	  	home_width = params[:width]
+	  	home_height = params[:height]
+	  	if (!(home_name.blank?)  && !(home_width.blank?)  && !(home_height.blank?))
+	  		Map.create(:name=>home_name, :width=>home_width, :height=>home_height)
+	  	end
+
+
+		@maps = Map.all
+	  	gon.maps = @maps
+	  	if (!(session[:map].blank?))
+	  		@current_map = session[:map]
+		else
+	  		@current_map = Map.first
+	  	end
+
+	  	# Check changing maps
+	  	change_map = params[:change_map]
+	  	if (!(change_map.blank?))
+	  		session[:map] = Map.find_by(name: change_map)
+	  		# @current_map = Map.find_by(name: change_map)
+
+			respond_to do |format|
+			  format.js {render inline: "location.reload();" }
+			end
+		end
+
+		puts @current_map['name']
+
+	  	
+
+	  	
+
   	end
 
   	def action_controller

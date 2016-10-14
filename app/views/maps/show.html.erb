@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @map.name %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @map.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @map.height %>
+</p>
+
+<p>
+  <strong>Shapes:</strong>
+  <%= @map.shapes %>
+</p>
+
+<p>
+  <strong>Beacons:</strong>
+  <%= @map.beacons %>
+</p>
+
+<p>
+  <strong>Obstacles:</strong>
+  <%= @map.obstacles %>
+</p>
+
+<p>
+  <strong>Doors:</strong>
+  <%= @map.doors %>
+</p>
+
+<%= link_to 'Edit', edit_map_path(@map) %> |
+<%= link_to 'Back', maps_path %>

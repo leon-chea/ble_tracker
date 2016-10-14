@@ -19,11 +19,18 @@
 
 <ul class="nav nav-tabs" role="tablist">
 	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">House 1<span class="caret"></span></a>
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= @current_map['name'] %><span class="caret"></span></a>
 		<ul class="dropdown-menu">
-			<li class="active"><a href="#">House 1</a></li>
-			<li><a href="#">House 2</a></li>
-			<li><center><a href=""><span id="menu_icons" class="glyphicon glyphicon-plus"></span></a></center></li>
+			<% @maps.each do |map| %>
+				<% if @current_map['name'].eql? map['name'] %>
+					<li class="active"><button type="button" class="btn btn-primary" id="change_map_<%= map['name'] %>"><%= map['name'] %></button></li>
+				<% else %>
+					<li><button type="button" class="btn btn-primary" id="change_map_<%= map['name'] %>"><%= map['name'] %></button></li>
+				<% end %>
+			<% end %>
+			<li><button type="button" class="btn btn-primary" id="new_map"><span id="menu_icons" class="glyphicon glyphicon-plus"></span></button>
+
+			<!-- <li><center><a href=""><span id="menu_icons" class="glyphicon glyphicon-plus"></span></a></center></li> -->
 		</ul>
 	</li>	
 
@@ -79,6 +86,26 @@
 			<br />
 			<input type="file" id="image_floor" class="btn btn-primary" onchange="loadFloor()">
 		</center>
+
+		<div id="map_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					<p> Add New Map </p>
+				</div>
+
+				<div class="dialogue_body">
+					<form id="map_form">
+						Map Name: <input type="text" name="name"> <br />
+						Width: <input type="text" name="w"> <br />
+						Height: <input type="text" name="h"> <br />
+
+						<input type="button" id="add_map" value="OK">
+						<input type="button" id="cancel_map" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
 
 		<div id="object_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
