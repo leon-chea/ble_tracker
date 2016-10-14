@@ -146,6 +146,10 @@ class HomeController < ApplicationController
 	  		@current_map = session[:map]
 		else
 	  		@current_map = Map.first
+	  		if @current_map.nil?
+		  		Map.create(:name=>'default', :width=>800, :height=>1200)
+		  		@current_map = Map.first
+	  		end
 	  	end
 
 	  	# Check changing maps
