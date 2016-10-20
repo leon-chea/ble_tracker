@@ -51,16 +51,19 @@ function main() {
 	// s.addRoom(new Room(s, 5, 60, 25, 25));
 
 	document.getElementById("resize_border").onclick = function() {
-  		resizeBorder(canvas);
+		document.getElementById('resize_dialogue').style.display = "block";
+		// resizeBorder(canvas);
 	};
 
 	document.getElementById("add").onclick = function() {
-		if (canvas.jointType=="corner") {
-			document.getElementById("radio_room").disabled = false;
-		} else {
-			document.getElementById("radio_room").disabled = true;
-			document.getElementById("radio_room").checked = false;
-		}
+//--------UNCOMMENT IF WANT ADD ROOM ONLY IF CURSOR AT ANOTHER CORNER
+		// if (canvas.jointType=="corner") {
+		// 	document.getElementById("radio_room").disabled = false;
+		// } else {
+		// 	document.getElementById("radio_room").disabled = true;
+		// 	document.getElementById("radio_room").checked = false;
+		// }
+//---------------------
 
 		if ((canvas.jointType=="vertical") || (canvas.jointType=="horizontal")) {
 			document.getElementById("radio_door").disabled = false;
@@ -126,7 +129,7 @@ function main() {
 						'change_map': map['name']
 					},
 					error: function() {
-						alert("ERROR with AJAX");
+						alert("ERROR: AJAX not working.");
 					}
 				})
 			});
@@ -144,6 +147,35 @@ function main() {
 	// document.getElementById("change_map").onclick = function() {
  //  		alert(document.getElementById("change_map").value);
 	// };
+
+
+	//----------------------RESIZE MAP DIALOGUE------------------------------//
+	document.getElementById("ok_resize").onclick = function() {
+		var form = document.getElementById("resize_form");
+
+		var w = parseInt(form.elements[0].value);
+		var h = parseInt(form.elements[1].value);
+
+		if ((w>0) && (h>0)) {
+			document.getElementById('resize_dialogue').style.display = "none";
+	    
+	    	localStorage.setItem("dimensions_width",w);
+    		localStorage.setItem("dimensions_height",h);
+
+			updateCanvasSize(canvas,parseFloat(w),parseFloat(h));
+
+		} else {
+			alert("ERROR: Invalid fields entered.");
+		}
+
+		canvas.valid = false;
+
+	};
+
+	document.getElementById("cancel_resize").onclick = function() {
+		document.getElementById('resize_dialogue').style.display = "none";
+	};
+	//---------------------------------------------------------------------//
 
 
 	//----------------------ADD MAP DIALOGUE------------------------------//
@@ -168,13 +200,13 @@ function main() {
 						'height': h
 					},
 					error: function() {
-						alert("ERROR with AJAX");
+						alert("ERROR: AJAX not working.");
 					}
 				})
 			});
 
 		} else {
-			alert("Please fill in all fields with proper values.");
+			alert("ERROR: Invalid fields entered.");
 		}
 
 	};
@@ -239,7 +271,7 @@ function main() {
 			canvas.addRoom(new Room(canvas,x,y,w,h));
 			document.getElementById('room_dialogue').style.display = "none";
 		} else {
-			alert("Please fill in all fields with proper values.");
+			alert("ERROR: Invalid fields entered.");
 		}
 
 	};
@@ -291,7 +323,7 @@ function main() {
 			canvas.addDoor(new Door(canvas,x,y,w,h));
 			document.getElementById('door_dialogue').style.display = "none";
 		} else {
-			alert("Please fill in all fields with proper values.");
+			alert("ERROR: Invalid fields entered.");
 		}
 
 	};
@@ -315,7 +347,7 @@ function main() {
 			canvas.addObstacle(new Obstacle(canvas,x,y,w,h));
 			document.getElementById('obstacle_dialogue').style.display = "none";
 		} else {
-			alert("Please fill in all fields with proper values.");
+			alert("ERROR: Invalid fields entered.");
 		}
 
 	};
@@ -340,7 +372,7 @@ function main() {
 			canvas.addBeacon(new Beacon(canvas,id,x,y));
 			document.getElementById('beacon_dialogue').style.display = "none";
 		} else {
-			alert("Please fill in all fields with proper values.");
+			alert("ERROR: Invalid fields entered.");
 		}
 
 	};
@@ -365,21 +397,22 @@ function updateCanvasSize(state,width,height) {
 	state.height = height;
 }
 
-function resizeBorder(state) {
-	var text = prompt("Please enter new dimensions in form \"width,height\"", localStorage.getItem("dimensions_width") + "," + localStorage.getItem("dimensions_height"));
-	if (text != null) {
-		var str = text.split(',');
 
-		canvas_width = parseInt(str[0]);
-		canvas_height = parseInt(str[1]);
+// function resizeBorder(state) {
+// 	var text = prompt("Please enter new dimensions in form \"width,height\"", localStorage.getItem("dimensions_width") + "," + localStorage.getItem("dimensions_height"));
+// 	if (text != null) {
+// 		var str = text.split(',');
 
-	    localStorage.setItem("dimensions_width",canvas_width);
-    	localStorage.setItem("dimensions_height",canvas_height);
+// 		canvas_width = parseInt(str[0]);
+// 		canvas_height = parseInt(str[1]);
 
-		updateCanvasSize(state,parseFloat(canvas_width),parseFloat(canvas_height));
-	}
-	state.valid = false;
-}
+// 	    localStorage.setItem("dimensions_width",canvas_width);
+//     	localStorage.setItem("dimensions_height",canvas_height);
+
+// 		updateCanvasSize(state,parseFloat(canvas_width),parseFloat(canvas_height));
+// 	}
+// 	state.valid = false;
+// }
 
 
 function save(state) {
@@ -412,7 +445,7 @@ function save(state) {
 
 			},
 			error: function() {
-				alert("ERROR with AJAX");
+				alert("ERROR: AJAX not working.");
 			}
 		})
 	});

@@ -13,6 +13,9 @@
 <%= render 'shared/navigation' %>
 
 <ul class="nav nav-tabs" role="tablist">
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= @current_map['name'] %></a>
+	</li>
 	<li class="active"><%= link_to 'Start Tracking', {action: "index", class: 'hyperlink'}, method: :get %></li>
 	<li><%= link_to "Modify Map", {action: "modify", class: 'hyperlink'}, method: :get %></li>
 </ul>

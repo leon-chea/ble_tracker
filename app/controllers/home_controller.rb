@@ -2,6 +2,16 @@ class HomeController < ApplicationController
 	def index
 		output = $output
 
+	  	if (!(session[:map].blank?))
+	  		@current_map = session[:map]
+		else
+	  		@current_map = Map.first
+	  		if @current_map.nil?
+		  		Map.create(:name=>'default', :width=>800, :height=>1200)
+		  		@current_map = Map.first
+	  		end
+	  	end
+
 		# @message = "{\"payload\":[2,1,6,26,255,76,0,2,21,0,255,0,5,12],\"rssi\":-95,\"ble_channel\":39}"
 		# @JSON_message = JSON.parse(@message)
 

@@ -187,6 +187,15 @@ function Canvas(canvas) {
 				}
 			}
 
+//---------click canvas border to add room too
+			// myState.isJoint = self.atCorner(mx,my,myState.scale_width,myState.w,myState.h);
+			// if (myState.isJoint.length > 0) {
+			// 	// alert(myState.isJoint);
+			// 	self.style.cursor = 'crosshair';
+			// 	break;
+			// }
+//-------------------------
+
 		}
 
 	}, true);
@@ -601,6 +610,31 @@ Canvas.prototype.setScale = function(scale_width,scale_height) {
 	this.scale_width = scale_width;
 	this.scale_height = scale_height;
 }
+
+
+var CLICK_SPACE = 3.0
+
+
+// //---------click canvas border to add room too
+// // Determine if cursor is at canvas corner
+// Canvas.prototype.atCorner = function(mx, my, scale_width, width, height) {
+// 	"use strict";
+
+// 	var click_space = CLICK_SPACE/scale_width;
+
+// 	if ((0 - click_space <= mx) && (0 + click_space >= mx) && (0 - click_space <= my) && (0 + click_space >= my)) {
+// 		return ["corner",[0, 0]];
+// 	} else if (((0 + width) - click_space <= mx) && ((0 + width) + click_space >= mx) && (0 - click_space <= my) && (0 + click_space >= my)) {
+// 		return ["corner",[0 + width, 0]];
+// 	} else if ((0 - click_space <= mx) && (0 + click_space >= mx) && ((0 + height) - click_space <= my) && ((0 + height) + click_space >= my)) {
+// 		return ["corner",[0, 0 + height]];
+// 	} else if (((0 + width) - click_space <= mx) && ((0 + width) + click_space >= mx) && ((0 + height) - click_space <= my) && ((0 + height) + click_space >= my)) {
+// 		return ["corner",[0 + width, 0 + height]];
+// 	}
+// 	return [];
+// };
+// //-------------------------
+
 
 // // returns an array shapes in form of [x,y,w,h]
 // Canvas.prototype.getWalls = function() {

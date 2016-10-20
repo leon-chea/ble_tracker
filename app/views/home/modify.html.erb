@@ -1,3 +1,4 @@
+<script type="text/javascript" src="https://raw.github.com/makeusabrew/bootbox/v2.4.2/bootbox.min.js"></script>
 
 <%= stylesheet_link_tag "layout" %>
 
@@ -87,20 +88,65 @@
 			<input type="file" id="image_floor" class="btn btn-primary" onchange="loadFloor()">
 		</center>
 
-		<div id="map_dialogue" class="dialogue"> 
+
+		<div id="resize_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Add New Map </p>
+					Resize Map Boundary
 				</div>
 
 				<div class="dialogue_body">
-					<form id="map_form">
-						Map Name: <input type="text" name="name"> <br />
-						Width: <input type="text" name="w"> <br />
-						Height: <input type="text" name="h"> <br />
+				 	<form id="resize_form">
+					 	<div class="form-group">
+							<label for="w">Map Width </label>
+						 	<input class="form-control" type="text" name="w">
+					 	</div>
 
-						<input type="button" id="add_map" value="OK">
-						<input type="button" id="cancel_map" value="Cancel">
+					 	<div class="form-group">
+							<label for="h">Map Height </label>
+						 	<input class="form-control" type="text" name="h">
+					 	</div>
+				 	</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="ok_resize" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_resize" value="Cancel">
+					</form>	
+				</div>
+			</div>
+		</div>
+
+		<div id="map_dialogue" class="dialogue"> 
+			<div class="dialogue_main">
+				<div class="dialogue_header">
+					Add New Map
+				</div>
+
+				<div class="dialogue_body">
+				 	<form id="map_form">
+						<div class="form-group">
+							<label for="name">Map Name </label>
+						 	<input class="form-control" type="text" name="name">
+					 	</div>
+
+					 	<div class="form-group">
+							<label for="w">Map Width </label>
+						 	<input class="form-control" type="text" name="w">
+					 	</div>
+
+					 	<div class="form-group">
+							<label for="h">Map Height </label>
+						 	<input class="form-control" type="text" name="h">
+					 	</div>
+				 	</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_map" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_map" value="Cancel">
 					</form>	
 				</div>
 			</div>
@@ -110,18 +156,30 @@
 		<div id="object_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Select what you want to add: </p>
+					Select an entity to add:
 				</div>
 
 				<div class="dialogue_body">
 					<form id="object_form">
-						<input type="radio" name="object" id="radio_room" value="room"> <label>Room</label> <br />
-						<input type="radio" name="object" id="radio_door" value="door"> <label>Door</label> <br />
-						<input type="radio" name="object" value="obstacle"> <label>Obstacle</label> <br />
-						<input type="radio" name="object" value="beacon"> <label>Beacon</label> <br />
+						<div class="form-group">
+							<input type="radio" name="object" id="radio_room" value="room"> <label>Room</label> <br />
+						</div>
+						<div class="form-group">
+							<input type="radio" name="object" id="radio_door" value="door"> <label>Door</label> <br />
+						</div>
+						<div class="form-group">
+							<input type="radio" name="object" value="obstacle"> <label>Obstacle</label> <br />
+						</div>
+						<div class="form-group">
+							<input type="radio" name="object" value="beacon"> <label>Beacon</label> <br />
+						</div>	
+					</form>
+				</div>
 
-						<input type="button" id="add_object" value="OK">
-						<input type="button" id="cancel_object" value="Cancel">
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_object" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_object" value="Cancel">
 					</form>	
 				</div>
 			</div>
@@ -131,17 +189,37 @@
 		<div id="room_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Add New Room </p>
+					Add New Room
 				</div>
 
 				<div class="dialogue_body">
 					<form id="room_form">
-						X-coordinate: <input type="text" name="x"> <br />
-						Y-coordinate: <input type="text" name="y"> <br />
-						Width: <input type="text" name="w"> <br />
-						Height: <input type="text" name="h"> <br />
-						<input type="button" id="add_room" value="OK">
-						<input type="button" id="cancel_room" value="Cancel">
+						<div class="form-group">
+							<label for="x">X-coordinate </label>
+							<input class="form-control" type="text" name="x">
+						</div>
+						
+						<div class="form-group">
+							<label for="y">Y-coordinate </label>
+							<input class="form-control" type="text" name="y">
+						</div>
+						
+						<div class="form-group">
+							<label for="w">Width </label>
+							<input class="form-control" type="text" name="w">
+						 </div>	
+						
+						<div class="form-group">
+							<label for="h">Height </label>
+							<input class="form-control" type="text" name="h">
+						</div>
+					</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_room" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_room" value="Cancel">
 					</form>	
 				</div>
 			</div>
@@ -151,21 +229,43 @@
 		<div id="door_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Add New Door </p>
+					Add New Door
 				</div>
 
 				<div class="dialogue_body">
 					<form id="door_form">
-						X-coordinate: <input type="text" name="x"> <br />
-						Y-coordinate: <input type="text" name="y"> <br />
-						Door Length: <input type="text" name="w"> <br />
-						<input type="radio" name="object" value="radio_upwards"> <label id="upwards">Open Upwards</label> <br />
-						<input type="radio" name="object" value="radio_downwards" checked="checked"> <label id="downwards">Open Downwards</label> <br />
+						<div class="form-group">
+							<label for="x">X-coordinate </label>
+							<input class="form-control" type="text" name="x">
+						</div>
+						
+						<div class="form-group">
+							<label for="y">Y-coordinate </label>
+							<input class="form-control" type="text" name="y">
+						</div>
+						
+						<div class="form-group">
+							<label for="w">Door Length </label>
+							<input class="form-control" type="text" name="w">
+						 </div>	
+						
+						<div class="form-group">
+							<input type="radio" name="object" value="radio_upwards"> <label id="upwards">Open Upwards</label> <br />
+						</div>
 
-						<input type="button" id="add_door" value="OK">
-						<input type="button" id="cancel_door" value="Cancel">
+						<div class="form-group">
+							<input type="radio" name="object" value="radio_downwards" checked="checked"> <label id="downwards">Open Downwards</label> <br />
+						</div>
+					</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_door" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_door" value="Cancel">
 					</form>	
 				</div>
+
 			</div>
 		</div>
 
@@ -173,19 +273,41 @@
 		<div id="obstacle_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Add New Obstacle </p>
+					Add New Obstacle
 				</div>
 
 				<div class="dialogue_body">
 					<form id="obstacle_form">
-						X-coordinate: <input type="text" name="x"> <br />
-						Y-coordinate: <input type="text" name="y"> <br />
-						Width: <input type="text" name="w"> <br />
-						Height: <input type="text" name="h"> <br />
-						<input type="button" id="add_obstacle" value="OK">
-						<input type="button" id="cancel_obstacle" value="Cancel">
+						<div class="form-group">
+							<label for="x">X-coordinate </label>
+							<input class="form-control" type="text" name="x">
+						</div>
+						
+						<div class="form-group">
+							<label for="y">Y-coordinate </label>
+							<input class="form-control" type="text" name="y">
+						</div>
+						
+						<div class="form-group">
+							<label for="w">Width </label>
+							<input class="form-control" type="text" name="w">
+						 </div>	
+						
+						<div class="form-group">
+							<label for="h">Height </label>
+							<input class="form-control" type="text" name="h">
+						</div>
+						
+					</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_obstacle" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_obstacle" value="Cancel">
 					</form>	
 				</div>
+
 			</div>
 		</div>
 
@@ -193,20 +315,37 @@
 		<div id="beacon_dialogue" class="dialogue"> 
 			<div class="dialogue_main">
 				<div class="dialogue_header">
-					<p> Add New Beacon </p>
+					Add New Beacon
 				</div>
 
 				<div class="dialogue_body">
 					<form id="beacon_form">
-						X-coordinate: <input type="text" name="x"> <br />
-						Y-coordinate: <input type="text" name="y"> <br />
-						Beacon ID: <input type="text" name="id"> <br />
-						<input type="button" id="add_beacon" value="OK">
-						<input type="button" id="cancel_beacon" value="Cancel">
+						<div class="form-group">
+							<label for="x">X-coordinate </label>
+							<input class="form-control" type="text" name="x">
+						</div>
+						
+						<div class="form-group">
+							<label for="y">Y-coordinate </label>
+							<input class="form-control" type="text" name="y">
+						</div>
+						
+						<div class="form-group">
+							<label for="id">Beacon ID </label>
+							<input class="form-control" type="text" name="id">
+						 </div>	
+					</form>
+				</div>
+
+				<div class="dialogue_footer">
+					<form>
+						<input type="button" class="btn btn-primary" id="add_beacon" value="OK">
+						<input type="button" class="btn btn-primary" id="cancel_beacon" value="Cancel">
 					</form>	
 				</div>
 			</div>
 		</div>
+		
     </div>
 </body>
 

@@ -105,7 +105,6 @@ body {
     animation-duration: 0.4s
 }
 
-/* Add Animation */
 @-webkit-keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
@@ -116,20 +115,32 @@ body {
     to {top: 0; opacity: 1}
 }
 
-.dialogue_header {
-    padding: 2px 16px;
-    background-color: lightblue;
-    color: white;
+.dialogue_header, .dialogue_body, .dialogue_footer {
+    margin: 0;
+    padding: 0 20px;
 }
 
-/* Modal Content/Box */
-.dialogue_body {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+.dialogue_header {
+    padding: 15px 0 8px;
+    background-color: lightblue;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 20pt;
 }
+
+.dialogue_body {
+    margin: 5% auto; /* 15% from the top and centered */
+    line-height: 1.5;
+    text-align: left;
+    font-size: 12pt;
+    width: 75%; /* Could be more or less, depending on screen size */
+}
+
+.dialogue_footer {
+    margin: 20px 0 20px;
+    padding-bottom: 15px;
+}
+
 
 
 /*.close {
