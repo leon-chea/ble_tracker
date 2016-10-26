@@ -1,13 +1,34 @@
-<nav id="banner" class="navbar navbar-inverse" role="navigation">
+<!-- <nav id="banner" class="navbar navbar-inverse" role="navigation">
   <div class="container">
     <div id="title" class="navbar-header">
       bTracked
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-    	<!-- <li><span class="glyphicon glyphicon-cogwheels"></span></li> -->
-
 		<li><a href=""><span id="menu_icons" class="glyphicon glyphicon-info-sign"></span></a></li>
 	</ul>
+
   </div>
-</nav>
+</nav> -->
+
+
+
+  
+<div class="container" id="banner">
+	<div class="row" id="title">
+  		<h1> bTracked </h1>
+	</div>
+</div>
+
+<br />
+
+<!-- <nav id="banner" class="navbar navbar-inverse" role="navigation"></nav> -->
+
+
+<script>	
+$('#nb').affix({
+    offset: {
+        top: $('#title').height()
+    }   
+});
+</script>

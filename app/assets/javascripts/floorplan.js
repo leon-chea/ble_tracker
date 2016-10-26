@@ -22,9 +22,10 @@ function main() {
 	document.getElementById('canvas').width = DISPLAY_WIDTH;
 	document.getElementById('canvas').height = DISPLAY_HEIGHT;
 
+	loadData(gon.current_map);
 
 	if ((localStorage.getItem("dimensions_width") == null) || (localStorage.getItem("dimensions_height") == null)) {
-		resizeBorder(canvas);
+		document.getElementById('resize_dialogue').style.display = "block";
 	}
 	updateCanvasSize(canvas,parseFloat(localStorage.getItem("dimensions_width")),parseFloat(localStorage.getItem("dimensions_height")));
 
@@ -40,8 +41,7 @@ function main() {
 	canvas.setObstacles(JSON.parse(localStorage.getItem("obstacles")));
 	canvas.setDoors(JSON.parse(localStorage.getItem("doors")));
 
-	document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("shapes") + " " + localStorage.getItem("doors")
-		+ " " + localStorage.getItem("obstacles") + " " + localStorage.getItem("beacons")).textContent; 
+	// document.getElementById("dummy").innerText = document.createTextNode(localStorage.getItem("shapes") + " " + localStorage.getItem("doors") + " " + localStorage.getItem("obstacles") + " " + localStorage.getItem("beacons")).textContent; 
 
 
 	 document.getElementById('floor').src = "data:image/png;base64," + localStorage.getItem("image");
@@ -52,7 +52,10 @@ function main() {
 
 	document.getElementById("resize_border").onclick = function() {
 		document.getElementById('resize_dialogue').style.display = "block";
-		// resizeBorder(canvas);
+	};
+
+	document.getElementById("grid").onclick = function() {
+		canvas.gridToggle();
 	};
 
 	document.getElementById("add").onclick = function() {
@@ -159,9 +162,6 @@ function main() {
 		if ((w>0) && (h>0)) {
 			document.getElementById('resize_dialogue').style.display = "none";
 	    
-	    	localStorage.setItem("dimensions_width",w);
-    		localStorage.setItem("dimensions_height",h);
-
 			updateCanvasSize(canvas,parseFloat(w),parseFloat(h));
 
 		} else {
@@ -366,10 +366,13 @@ function main() {
 		var x = parseInt(form.elements[0].value);
 		var y = parseInt(form.elements[1].value);
 		var id = parseInt(form.elements[2].value);
+		var dir = parseInt(form.elements[3].value);
+		var env = parseInt(form.elements[4].value);
 
 
-		if ((id>0) && (x>=0) && (y>=0)) {
-			canvas.addBeacon(new Beacon(canvas,id,x,y));
+
+		if ((id>0) && (x>=0) && (y>=0) && (dir>=1) && (dir<=4) && (env>=1) && (env<=3)) {
+			canvas.addBeacon(new Beacon(canvas,id,x,y,dir,env));
 			document.getElementById('beacon_dialogue').style.display = "none";
 		} else {
 			alert("ERROR: Invalid fields entered.");
@@ -386,6 +389,17 @@ function main() {
 
 }
 
+
+// load all current_map data from database
+function loadData(map) {
+	localStorage.setItem("dimensions_width",map['width']);
+    localStorage.setItem("dimensions_height",map['height']);
+    localStorage.setItem("shapes",map['shapes']);
+    localStorage.setItem("beacons",map['beacons']);
+    localStorage.setItem("obstacles",map['obstacles']);
+    localStorage.setItem("doors",map['doors']);
+}
+
 function updateCanvasSize(state,width,height) {
 	var scale_width = DISPLAY_WIDTH/width;
 	var scale_height = DISPLAY_HEIGHT/height;
@@ -398,26 +412,11 @@ function updateCanvasSize(state,width,height) {
 }
 
 
-// function resizeBorder(state) {
-// 	var text = prompt("Please enter new dimensions in form \"width,height\"", localStorage.getItem("dimensions_width") + "," + localStorage.getItem("dimensions_height"));
-// 	if (text != null) {
-// 		var str = text.split(',');
-
-// 		canvas_width = parseInt(str[0]);
-// 		canvas_height = parseInt(str[1]);
-
-// 	    localStorage.setItem("dimensions_width",canvas_width);
-//     	localStorage.setItem("dimensions_height",canvas_height);
-
-// 		updateCanvasSize(state,parseFloat(canvas_width),parseFloat(canvas_height));
-// 	}
-// 	state.valid = false;
-// }
-
-
 function save(state) {
 	alert("Changes saved.");
 
+	localStorage.setItem("dimensions_width",state.getWidth());
+	localStorage.setItem("dimensions_height",state.getHeight());
     localStorage.setItem("shapes",JSON.stringify(state.getShapes()));
     localStorage.setItem("beacons",JSON.stringify(state.getBeacons()));
     localStorage.setItem("obstacles",JSON.stringify(state.getObstacles()));
@@ -436,8 +435,8 @@ function save(state) {
 			// data: {'id':102,'name':'bob'},
 			data: {
 				'update_map': true,
-				'dimensions_width': localStorage.getItem("dimensions_width"),
-				'dimensions_height': localStorage.getItem("dimensions_height"),
+				'dimensions_width': state.getWidth(),
+				'dimensions_height': state.getHeight(),
 				'save_shapes': JSON.stringify(state.getShapes()),
 				'save_beacons': JSON.stringify(state.getBeacons()),
 				'save_obstacles': JSON.stringify(state.getObstacles()),

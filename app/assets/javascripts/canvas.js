@@ -38,6 +38,7 @@ function Canvas(canvas) {
 	this.scale_width = 1;
 	this.scale_height = 1;
 
+	this.grid = false; // is grid on?
 
 	this.dragging = false; // Keep track of when we are dragging
 	this.isJoint = ""; // Keep track of whether we are at corner or edge of room
@@ -324,22 +325,23 @@ Canvas.prototype.draw = function() {
 			// ctx.lineWidth = LINE_WIDTH/this.scale_width;
 			// mySel = this.selection;
 			// ctx.strokeRect(mySel.x,mySel.y,mySel.w,mySel.h);
-
 		}
 
 		// --------create a grid --------
-		for (var x = 0.5; x < this.width; x += 100) {
-		  ctx.moveTo(x, 0);
-		  ctx.lineTo(x, this.height);
-		}
+		if (this.grid) {
+			for (var x = 0.5; x < this.width; x += 100) {
+			  ctx.moveTo(x, 0);
+			  ctx.lineTo(x, this.height);
+			}
 
-		for (var y = 0.5; y < this.height; y += 100) {
-		  ctx.moveTo(0, y);
-		  ctx.lineTo(this.width, y);
-		}
+			for (var y = 0.5; y < this.height; y += 100) {
+			  ctx.moveTo(0, y);
+			  ctx.lineTo(this.width, y);
+			}
 
-		ctx.strokeStyle = "#bbbbbb";
-		ctx.stroke();
+			ctx.strokeStyle = "#bbbbbb";
+			ctx.stroke();
+		}
 		// ------------------------------
 
 
@@ -453,6 +455,14 @@ Canvas.prototype.getMouse = function(e) {
 // 	this.valid = false;
 // }
 
+Canvas.prototype.getWidth = function() {
+	return this.width;
+}
+
+Canvas.prototype.getHeight = function() {
+	return this.height;
+}
+
 Canvas.prototype.deleteObject = function() {
 	"use strict";
 	if (this.selection !== null) {
@@ -512,12 +522,12 @@ Canvas.prototype.getBeacons = function() {
 	return arr;
 };
 
-// updates the beacon array with the_shapes
+// updates the beacon array with the_beacons
 Canvas.prototype.setBeacons = function(the_beacons) {
 	var self = this;
 	this.beacons = [];
 	the_beacons.forEach( function(entry) {
-		self.addBeacon(new Beacon(this,parseInt(entry[0]),parseInt(entry[1]),parseInt(entry[2])));
+		self.addBeacon(new Beacon(this,parseInt(entry[0]),parseInt(entry[1]),parseInt(entry[2]),parseInt(entry[3]),parseInt(entry[4])));
 	});
 	this.valid = false;
 };
@@ -543,7 +553,7 @@ Canvas.prototype.getObstacles = function() {
 	return arr;
 };
 
-// updates the beacon array with the_shapes
+// updates the obstacles array with the_obstacles
 Canvas.prototype.setObstacles = function(the_obstacles) {
 	var self = this;
 	this.obstacles = [];
@@ -574,7 +584,7 @@ Canvas.prototype.getDoors = function() {
 	return arr;
 };
 
-// updates the beacon array with the_shapes
+// updates the doors array with the_doors
 Canvas.prototype.setDoors = function(the_doors) {
 	var self = this;
 	this.doors = [];
@@ -609,11 +619,18 @@ Canvas.prototype.setTarget = function(estimated_x,estimated_y,measured_x,measure
 Canvas.prototype.setScale = function(scale_width,scale_height) {
 	this.scale_width = scale_width;
 	this.scale_height = scale_height;
+
+	this.valid = false;
 }
 
-
-var CLICK_SPACE = 3.0
-
+Canvas.prototype.gridToggle = function() {
+	if (this.grid) {
+		this.grid = false;
+	} else {
+		this.grid = true;
+	}
+	this.valid = false;
+}
 
 // //---------click canvas border to add room too
 // // Determine if cursor is at canvas corner

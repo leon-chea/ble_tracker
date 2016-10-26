@@ -1,4 +1,4 @@
-var OBSTACLE_COLOR = "#666666"
+var OBSTACLE_COLOR = "#888888"
 
 // Constructor for Obstacle objects to hold data for all drawn objects.
 // For now they will just be defined as rectangles.

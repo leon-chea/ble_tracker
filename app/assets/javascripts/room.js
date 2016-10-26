@@ -1,4 +1,4 @@
-var ROOM_COLOR = "#0000FF"
+var ROOM_COLOR = "#000000"
 var LINE_WIDTH = 1.0
 var CLICK_SPACE = 3.0
 // Constructor for Room objects to hold data for all drawn objects.

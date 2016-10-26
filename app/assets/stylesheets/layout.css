@@ -1,9 +1,16 @@
 #title {
     font-size: 30pt;
+    text-align: left;
+    left-margin: 100px;
+    text-indent: 25px ;
+    top: 0;
+    width: 100%;
 }
 
 #banner {
     background-color: lightblue;
+    width: 100%;
+
 }
 
 #menu_icons {

@@ -1,9 +1,9 @@
-var BEACON_COLOR = "#000000"
+var BEACON_COLOR = "#0000FF"
 var BEACON_WIDTH = 10.0;
 var BEACON_HEIGHT = 10.0;
 // Constructor for Beacon objects to hold data for all drawn objects.
 // For now they will just be defined as rectangles.
-function Beacon(state, id, x, y) {
+function Beacon(state, id, x, y, dir, env) {
 	"use strict";
 
 	this.state = state;
@@ -12,6 +12,8 @@ function Beacon(state, id, x, y) {
 	this.y = y;
 	this.w = BEACON_WIDTH;
 	this.h = BEACON_HEIGHT;
+	this.dir = dir;
+	this.env = env;
 	this.color = BEACON_COLOR;
 
 }
@@ -46,11 +48,11 @@ Beacon.prototype.contains = function(mx, my, scale_width, scale_height) {
 Beacon.prototype.toArray = function() {
 	"use strict"
 
-	return [this.id,this.x,this.y];
+	return [this.id,this.x,this.y, this.dir, this.env];
 };
 
 Beacon.prototype.toString = function() {
 	"use strict"
 
-	return this.id.toString() + " " + this.x.toString() + " "  + this.y.toString();
+	return this.id.toString() + " " + this.x.toString() + " "  + this.y.toString() + " " + this.dir.toString() + " " + this.env.toString();
 };
